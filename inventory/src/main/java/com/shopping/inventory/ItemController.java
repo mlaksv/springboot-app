@@ -15,6 +15,8 @@ public class ItemController {
         return itemService.createItem(item);
     }
 
+    //This is the API to retrieve GetALLItems
+    //adding another comment
 
     @GetMapping("/items")
     public Iterable<Item> getItems(){
