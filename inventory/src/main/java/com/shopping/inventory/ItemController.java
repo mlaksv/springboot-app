@@ -2,11 +2,7 @@ package com.shopping.inventory;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ItemController {
@@ -29,6 +25,10 @@ public class ItemController {
     public Optional<Item> getOneItemByID(@PathVariable Long id){
         //System.out.println("id is : "+id);
         return tableService.getOneItem(id);
+    }
+    @PutMapping("/items/{id}")
+    public Item updateItem(@PathVariable("id") Long id, @RequestBody Item item) throws ItemNotFoundException{
+        return tableService.updateItem(id, item);
     }
 
 }

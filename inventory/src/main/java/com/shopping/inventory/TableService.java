@@ -4,6 +4,9 @@ import lombok.Data;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.swing.text.html.Option;
+
 @Data
 @Service
 public class TableService {
@@ -41,5 +44,19 @@ public class TableService {
     public Optional<Grade> getOneGrade(Long id)
     {
         return gradeRepository.findById(id);
+    }
+
+    public Item updateItem(Long id, Item item) throws ItemNotFoundException{
+        Optional<Item> currentOptionalItem = getOneItem(id);
+        if(currentOptionalItem.isPresent()){
+            Item currentItem = currentOptionalItem.get();
+            currentItem.setName(item.getName());
+            currentItem.setFullDescription(item.getFullDescription());
+            currentItem.setPrice(item.getPrice());
+            createItem(currentItem);
+        }else {
+            throw new ItemNotFoundException(id);
+        }
+        return item;
     }
 }
